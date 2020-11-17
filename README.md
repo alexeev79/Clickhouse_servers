@@ -122,12 +122,19 @@ Query id: 8916b0b1-d46b-4dcb-aac1-47143be00e65
 
 или смотрим перечень доменов имеющихся во всей таблице
 clickhouse-02 :) select DISTINCT domain from web_view
+
 SELECT DISTINCT domain
 FROM web_view
 Query id: 893a20f6-9cc5-4d6d-9d7c-19bd852fa609
+
 ┌─domain────────────┐
+
 │ http://ya.ru      │
+
 │ http://mail.ru    │
+
 │ http://google.com │
+
 └───────────────────┘
+
 3 rows in set. Elapsed: 0.005 sec. 
