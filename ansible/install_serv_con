@@ -1,0 +1,9 @@
+#!/bin/bash
+
+sudo ansible cont -c docker -m raw -a 'apt-get update && apt-get install -y openssh-server'
+sudo ansible cont -c docker -m raw -a '/etc/init.d/ssh start'
+sudo ansible cont -c docker -m raw -a 'apt-get update'
+sudo ansible cont -c docker -m raw -a 'apt-get install -y sshpass'
+sudo ansible cont -c docker -m raw -a 'useradd -m -G root ssh_user1 -p ssh'
+sudo ansible cont -c docker -m raw -a 'mkdir /home/ssh_user1/.ssh'
+sudo ansible cont -c docker -m raw -a 'chown -hR ssh_user1:ssh_user1 /home/ssh_user1/.ssh/'

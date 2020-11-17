@@ -1,0 +1,84 @@
+---
+
+ - name: Create simple table groups serv and DB
+   hosts: serv
+   vars:
+     command_CH: clickhouse-client --host localhost --database lab1 --multiquery -q
+
+   tasks:
+     - name: Create database lab
+       command: "clickhouse-client --host localhost --multiquery -q 'CREATE DATABASE lab1'"
+       register: output
+
+     - debug:
+         var: output.cmd
+
+
+     - name: Create ruoters table
+       command: "{{ command_CH }} 'CREATE TABLE routers (id UInt64, Vendor String, Model String) ENGINE = Log'"
+       register: output
+
+     - debug:
+         var: output.cmd
+
+
+     - name: Create regions table
+       command: "{{ command_CH }} 'CREATE TABLE regions (code UInt64, Name String) ENGINE = Log'"
+       register: output
+
+     - debug:
+         var: output.cmd
+
+
+ - name: Create replicated table ch1
+   hosts: chs1
+   vars: 
+     replika_id: 1 
+     tab_id: 1
+   tasks:
+     - name: Create web{{ tab_id }}
+       shell: clickhouse-client --host localhost --database lab1 --multiquery -q "CREATE TABLE web{{ tab_id }} (time DateTime, domain String, uri String) ENGINE = ReplicatedMergeTree('/clickhouse/tables/1/web{{ tab_id }}', '{{ replika_id }}') PRIMARY KEY time ORDER BY (time, domain)"
+       register: output
+
+     - debug:
+         var: output
+
+
+ - name: Create replicated table ch2
+   hosts: chs2
+   vars:
+     replika_id: 2 
+     tab_id: 1
+   tasks:
+     - name: Create web{{ tab_id }}
+       shell: clickhouse-client --host localhost --database lab1 --multiquery -q "CREATE TABLE web{{ tab_id }} (time DateTime, domain String, uri String) ENGINE = ReplicatedMergeTree('/clickhouse/tables/1/web{{ tab_id }}', '{{ replika_id }}') PRIMARY KEY time ORDER BY (time, domain)"
+       register: output
+
+     - debug:
+         var: output
+
+
+ - name: Create MATERIALIZED VIEW vs populate
+   hosts: serv
+   vars:
+     tab_id: 1 
+   tasks:
+     - name: Create web_view_pop
+       shell: clickhouse-client --host localhost --database lab1 --multiquery -q "CREATE MATERIALIZED VIEW web_view_pop ENGINE = SummingMergeTree() ORDER BY period POPULATE AS select (time-toSecond(time)%30) AS period, domain, count(*) FROM web{{ tab_id }} GROUP BY period, domain"
+       register: output
+
+     - debug:
+         var: output
+
+
+ - name: Create MATERIALIZED VIEW only new data
+   hosts: serv
+   vars:
+     tab_id: 1 
+   tasks:
+     - name: Create web_view
+       shell: clickhouse-client --host localhost --database lab1 --multiquery -q "CREATE MATERIALIZED VIEW web_view ENGINE = SummingMergeTree() ORDER BY period AS select (time-toSecond(time)%30) AS period, domain, count(*) FROM web{{ tab_id }} GROUP BY period, domain"
+       register: output
+
+     - debug:
+         var: output

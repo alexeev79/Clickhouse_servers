@@ -1,0 +1,16 @@
+#!/bin/bash
+
+sudo useradd -m -G root ssh_user1 -p ssh
+sudo usermod -aG sudo ssh_user1
+sudo mkdir /home/ssh_user1/.ssh
+ssh-keygen -t rsa -b 4096
+sudo chmod 0400 /root/.ssh/id_rsa.pub
+sudo cp /etc/ssh/ssh_config /home/key/
+sudo cp /root/.ssh/id_rsa.pub /home/key/
+sudo cp /root/.ssh/authorized_keys /home/key/
+sudo cat /home/key/id_rsa.pub >> /home/key/authorized_keys
+sudo cat /home/key/id_rsa.pub > /home/ubuntu/.ssh/known_hosts
+sudo cp /home/key/id_rsa.pub /home/ssh_user1/.ssh/
+sudo cp /home/key/authorized_keys /home/ssh_user1/.ssh/
+sudo chmod 0400 /home/ssh_user1/.ssh/id_rsa.pub
+sudo chown -hR ssh_user1:ssh_user1 /home/ssh_user1/.ssh/

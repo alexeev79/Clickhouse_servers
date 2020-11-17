@@ -1,0 +1,7 @@
+#!/bin/bash
+
+sudo ansible cont -c docker -m raw -a 'cp /home/id_rsa.pub /home/ssh_user1/.ssh/'
+sudo ansible cont -c docker -m raw -a 'cp /home/authorized_keys /home/ssh_user1/.ssh/'
+sudo ansible cont -c docker -m raw -a 'chown -hR ssh_user1:ssh_user1 /home/ssh_user1/.ssh/'
+sudo ansible cont -c docker -m raw -a 'cp /home/ssh_config /etc/ssh/'
+sudo ansible cont -c docker -m raw -a '/etc/init.d/ssh restart'

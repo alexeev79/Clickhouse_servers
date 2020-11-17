@@ -1,0 +1,17 @@
+[chs1]
+ch1  ansible_host=172.18.0.4
+
+[chs2]
+ch2  ansible_host=172.18.0.3
+
+[serv:children]
+chs1
+chs2
+
+[cont]
+1bebd4a28899
+a382f7d194ef
+
+[serv:vars]
+ansible_user=ssh_user1
+ansible_ssh_private_key_file=/home/ssh_user1/.ssh/id_rsa.pub
