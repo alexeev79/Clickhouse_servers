@@ -3,7 +3,8 @@
 sudo useradd -m -G root ssh_user1 -p ssh
 sudo usermod -aG sudo ssh_user1
 sudo mkdir /home/ssh_user1/.ssh
-ssh-keygen -t rsa -b 4096
+sudo mkdir /home/key
+#ssh-keygen -t rsa -b 4096
 sudo chmod 0400 /root/.ssh/id_rsa.pub
 sudo cp /etc/ssh/ssh_config /home/key/
 sudo cp /root/.ssh/id_rsa.pub /home/key/
