@@ -58,20 +58,7 @@
          var: output
 
 
- - name: Create MATERIALIZED VIEW vs populate
-   hosts: serv
-   vars:
-     tab_id: 1 
-   tasks:
-     - name: Create web_view_pop
-       shell: clickhouse-client --host localhost --database lab1 --multiquery -q "CREATE MATERIALIZED VIEW web_view_pop ENGINE = SummingMergeTree() ORDER BY period POPULATE AS select (time-toSecond(time)%30) AS period, domain, count(*) FROM web{{ tab_id }} GROUP BY period, domain"
-       register: output
-
-     - debug:
-         var: output
-
-
- - name: Create MATERIALIZED VIEW only new data
+ - name: Create MATERIALIZED VIEW
    hosts: serv
    vars:
      tab_id: 1 
