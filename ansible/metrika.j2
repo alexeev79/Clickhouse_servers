@@ -1,0 +1,18 @@
+<yandex>
+        <clickhouse_remote_servers>
+        {% for key, shard_names in clickhouse_shards.items() -%}
+                        <{{ shard_names }}>
+                                    <shard>
+                                          <weight>1</weight>
+                                          <internal_replication>true</internal_replication>
+                                         {%- for key, value in rep_names.items() %}
+                                          <replica>
+                                                  <host>{{ value }}</host>
+                                                  <port>9000</port>
+                                          </replica>
+                                         {% endfor -%}
+                                    </shard>
+                        </{{ shard_names }}>
+         {% endfor %}
+         </clickhouse_remote_servers>
+</yandex>

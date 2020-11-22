@@ -1,0 +1,29 @@
+---
+- name: Create config metrika.xml
+  hosts: serv
+  become: yes
+  become_user: root
+
+  vars:
+    rep_names:
+      serv1: "{{ REP1 }}"
+      serv2: "{{ REP2 }}"
+
+    clickhouse_shards: 
+      shard_an: Cluster_1
+
+  tasks:
+  - name: metrika conf
+    template:
+      src: "metrika.j2"
+      dest: "/etc/clickhouse-server/config.d/clickhouse_metrika.xml"
+      owner: clickhouse
+      group: clickhouse
+      mode: 0644
+    notify: restart-ssh
+
+  handlers:
+  - name: restart-ssh
+    service:
+      name: "ssh"
+      state: restarted

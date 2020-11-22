@@ -13,14 +13,15 @@ services:
         image: yandex/clickhouse-server
         hostname: clickhouse-01
         container_name: clickhouse-01
+        restart: on-failure
         ports:
             - 9001:9000
         volumes:
-                - /home/clickhouse/config/clickhouse_config.xml:/etc/clickhouse-server/config.xml
-                - /home/clickhouse/config/clickhouse_metrika.xml:/etc/clickhouse-server/metrika.xml
-                - /home/clickhouse/config/macros/macros-01.xml:/etc/clickhouse-server/config.d/macros.xml
-                - /home/clickhouse/config/users.xml:/etc/clickhouse-server/users.xml
-                - /home/key:/home
+            - /home/clickhouse/config/clickhouse_config.xml:/etc/clickhouse-server/config.xml
+            - /home/clickhouse/config/users.xml:/etc/clickhouse-server/users.xml
+            - /home/clickhouse/config/clickhouse_metrika.xml:/etc/clickhouse-server/metrika.xml
+            - /home/clickhouse/config/macros/macros-01.xml:/etc/clickhouse-server/config.d/macros.xml
+            - /home/key:/home
         ulimits:
             nofile:
                 soft: 262144
@@ -32,14 +33,15 @@ services:
         image: yandex/clickhouse-server
         hostname: clickhouse-02
         container_name: clickhouse-02
+        restart: on-failure
         ports:
             - 9002:9000
         volumes:
-                - /home/clickhouse/config/clickhouse_config.xml:/etc/clickhouse-server/config.xml
-                - /home/clickhouse/config/clickhouse_metrika.xml:/etc/clickhouse-server/metrika.xml
-                - /home/clickhouse/config/macros/macros-02.xml:/etc/clickhouse-server/config.d/macros.xml
-                - /home/clickhouse/config/users.xml:/etc/clickhouse-server/users.xml
-                - /home/key:/home
+            - /home/clickhouse/config/clickhouse_config.xml:/etc/clickhouse-server/config.xml
+            - /home/clickhouse/config/users.xml:/etc/clickhouse-server/users.xml
+            - /home/clickhouse/config/clickhouse_metrika.xml:/etc/clickhouse-server/metrika.xml
+            - /home/clickhouse/config/macros/macros-01.xml:/etc/clickhouse-server/config.d/macros.xml
+            - /home/key:/home
         ulimits:
             nofile:
                 soft: 262144

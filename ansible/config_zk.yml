@@ -1,0 +1,24 @@
+---
+- name: Create config zk.xml
+  hosts: serv
+  become: yes
+  become_user: root
+
+  vars:
+    zk:
+      - { host: "clickhouse-zookeeper", port: 2181 }
+  tasks:
+    - name: zk
+      template:
+        src: "zk.j2"
+        dest: "/etc/clickhouse-server/config.d/zk_net.xml"
+        owner: clickhouse
+        group: clickhouse
+        mode: 0644
+      notify: restart-ssh
+
+  handlers:
+  - name: restart-ssh
+    service:
+      name: "ssh"
+      state: restarted

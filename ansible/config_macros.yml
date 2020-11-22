@@ -1,0 +1,24 @@
+---
+- name: Create config macros.xml
+  hosts: serv
+  become: yes
+  become_user: root
+
+  tasks:
+  - name: macros conf
+    template:
+      src: "macros.j2"
+      dest: "/etc/clickhouse-server/config.d/macros_{{ item }}.xml"
+      owner: clickhouse
+      group: clickhouse
+      mode: 0644
+    loop:
+      - clickhouse-01
+      - clickhouse-02
+    notify: restart-ssh
+
+  handlers:
+  - name: restart-ssh
+    service:
+      name: "ssh"
+      state: restarted
