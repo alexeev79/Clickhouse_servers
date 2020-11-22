@@ -39,13 +39,9 @@ sudo docker run -it --rm --network="clickhouse-net" --link clickhouse-01:clickho
 12. Вносим тестовые данные в таблицу web1
 ```
 INSERT INTO web1 VALUES (now('Europe/Moscow'), 'http://ya.ru', 'https://ya.ru/?from=tabbar')
-
 INSERT INTO web1 VALUES (now('Europe/Moscow'), 'http://ya.ru', 'https://ya.ru/?from=tabbar222')
-
 INSERT INTO web1 VALUES (now('Europe/Moscow'), 'http://google.com', 'https://google.com/?from=tabbar')
-
 INSERT INTO web1 VALUES (now('Europe/Moscow'), 'http://yandex.ru', 'https://yandex.ru/?from=tabbar')
-
 INSERT INTO web1 VALUES (now('Europe/Moscow'), 'http://mail.ru', 'https://mail.ru/?from=tabbar222')
 ```
 13. Подключаемся ко второму серверу
