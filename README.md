@@ -2,6 +2,9 @@
 2 Clickhouse servers and ZooKeeper with replicated table and materialized view.
 
 # Инструкция по установке
+Можно воспользоваться ролями для генерации файлов конфигурации в папке /ansible/roles/
+или запустить самостоятельно, согласно следующей инструкции:
+
 1. Создаем директорию /home/clickhouse/ куда копируем файл docker-compose.yaml и директорию config
 Создаем сеть `sudo docker network clickhouse-net` 
 
