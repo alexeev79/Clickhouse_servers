@@ -1,0 +1,6 @@
+---
+# handlers file for clickhouse_config_zk
+- name: restart-ssh
+  service:
+    name: "ssh"
+    state: restarted

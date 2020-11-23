@@ -1,0 +1,10 @@
+---
+# tasks file for clickhouse_config_zk
+- name: zk
+  template:
+    src: "zk.j2"
+    dest: "/etc/clickhouse-server/config.d/zk_net.xml"
+    owner: clickhouse
+    group: clickhouse
+    mode: 0644
+  notify: restart-ssh

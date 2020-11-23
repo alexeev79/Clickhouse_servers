@@ -1,0 +1,9 @@
+---
+# defaults file for clickhouse_config_metrika
+rep_names:
+  replika1: 
+      "clickhouse-01"
+  perlika2:
+      "clickhouse-02"
+clickhouse_shards: 
+  shard_name: Cluster_1

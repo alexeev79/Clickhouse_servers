@@ -1,0 +1,10 @@
+---
+# tasks file for clickhouse_config_metrika
+- name: metrika conf
+  template:
+    src: "metrika.j2"
+    dest: "/etc/clickhouse-server/config.d/clickhouse_metrika.xml"
+    owner: clickhouse
+    group: clickhouse
+    mode: 0644
+  notify: restart-ssh

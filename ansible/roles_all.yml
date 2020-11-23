@@ -1,0 +1,10 @@
+---
+- name: Create all config for clickhouse
+  hosts: serv
+  become: yes
+  become_user: root
+
+  roles:
+    - clickhouse_config_macros
+    - clickhouse_config_metrika
+    - clickhouse_config_zk

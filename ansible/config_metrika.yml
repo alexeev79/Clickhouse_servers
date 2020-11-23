@@ -6,11 +6,12 @@
 
   vars:
     rep_names:
-      serv1: "{{ REP1 }}"
-      serv2: "{{ REP2 }}"
-
+      replika1: 
+          "clickhouse-01"
+      perlika2:
+          "clickhouse-02"
     clickhouse_shards: 
-      shard_an: Cluster_1
+      shard_name: Cluster_1
 
   tasks:
   - name: metrika conf

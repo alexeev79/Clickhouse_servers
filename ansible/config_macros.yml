@@ -4,6 +4,9 @@
   become: yes
   become_user: root
 
+  vars: 
+    shard_numb: "01"
+
   tasks:
   - name: macros conf
     template:

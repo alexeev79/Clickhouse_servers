@@ -1,0 +1,6 @@
+---
+# handlers file for clickhouse_config_metrika
+- name: restart-ssh
+  service:
+    name: "ssh"
+    state: restarted

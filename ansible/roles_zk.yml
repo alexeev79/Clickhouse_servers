@@ -1,0 +1,8 @@
+---
+- name: Create config zk.xml
+  hosts: serv
+  become: yes
+  become_user: root
+
+  roles:
+    - clickhouse_config_zk

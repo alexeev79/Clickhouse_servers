@@ -1,0 +1,4 @@
+---
+# defaults file for clickhouse_config_zk
+zk:
+  - { host: "clickhouse-zookeeper", port: 2181 }
